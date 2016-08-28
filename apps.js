@@ -54,28 +54,6 @@ submit.addEventListener('click', function (event) {
     editBtn.innerHTML = "edit";
     editBtn.setAttribute("type", "button");
 
-    // //First click on Edit Button
-    // editBtn.addEventListener('click', function () {
-    //   var currentValue = this.previousSibling.previousSibling.textContent;
-    //   editInput.setAttribute("value", currentValue);
-    //   listItem.appendChild(editInput);
-    //
-    //   editBtn.innerHTML = "submit"
-    //   //Second click on Edit Button
-    //   editBtn.addEventListener('click', function () {
-    //     // console.log(this.parentNode.textContent);
-    //     var newValue = document.getElementById("editor").value
-    //     // console.log(newValue);
-    //
-    //     // console.log(this.previousSibling.previousSibling);
-    //     // editBtn.innerHTML = "edit"
-    //     this.previousSibling.previousSibling.innerText = newValue;
-    //   });
-    // });
-
-
-    console.log("this is first pressed value should be false: " + pressed);
-
     var pressed = false;
     editBtn.addEventListener('click', function () {
       if (!pressed) {
@@ -85,17 +63,13 @@ submit.addEventListener('click', function (event) {
         listItem.appendChild(editInput);
         editBtn.innerHTML = "submit"
         pressed = true;
-
-        console.log("this is first pressed value should be true: " + pressed);
       } else {
         //do second click
         var newValue = document.getElementById("editor").value
-        // editBtn.innerHTML = "edit"
         this.previousSibling.previousSibling.innerText = newValue;
         listItem.removeChild(editInput);
 
         pressed = false;
-        console.log("this is first pressed value should be false: " + pressed);
         editBtn.innerHTML = "edit"
       }
     });
