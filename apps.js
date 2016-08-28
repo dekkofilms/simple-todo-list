@@ -23,7 +23,6 @@ submit.setAttribute("type", "submit");
 submit.setAttribute("id", "add_todo");
 submit.innerHTML = "Add ToDo";
 
-//Delete button
 
 //Event Handler to add Todo's to List
 submit.addEventListener('click', function (event) {
@@ -34,22 +33,51 @@ submit.addEventListener('click', function (event) {
     var listItem = document.createElement('li');
     listItem.innerHTML = todoTask;
 
-    // Add x's and Edit button
+    // Add delete button
     var xBtn = document.createElement('button');
-    xBtn.setAttribute("class", "deleteBtn")
+    xBtn.setAttribute("class", "deleteBtn");
     xBtn.innerHTML = "x";
-    xBtn.setAttribute("type", "button")
+    xBtn.setAttribute("type", "button");
     xBtn.addEventListener('click', function () {
       this.parentNode.remove();
     })
 
+    //Add edit button
+    var editInput = document.createElement('input');
+    editInput.setAttribute("type", "text");
+    editInput.setAttribute("name", "editor");
+    editInput.setAttribute("id", "editor");
 
+    var editBtn = document.createElement('button');
+    editBtn.setAttribute("class", "editBtn");
+    editBtn.innerHTML = "edit";
+    editBtn.setAttribute("type", "button");
+
+    //First click on Edit Button
+    editBtn.addEventListener('click', function () {
+      var currentValue = this.previousSibling.previousSibling.textContent;
+      editInput.setAttribute("value", currentValue);
+      listItem.appendChild(editInput);
+
+      editBtn.innerHTML = "submit"
+      //Second click on Edit Button
+      editBtn.addEventListener('click', function () {
+        // console.log(this.parentNode.textContent);
+        var newValue = document.getElementById("editor").value
+
+        this.parentNode.innerHTML = newValue;
+
+      });
+    });
 
 
 
 
 
     listItem.appendChild(xBtn);
+    listItem.appendChild(editBtn);
+
+
     unordered.appendChild(listItem);
 
     //Resets the form
