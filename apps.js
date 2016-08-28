@@ -23,15 +23,16 @@ submit.setAttribute("type", "submit");
 submit.setAttribute("id", "add_todo");
 submit.innerHTML = "Add ToDo";
 
-
 //Event Handler to add Todo's to List
 submit.addEventListener('click', function (event) {
   event.preventDefault();
   var todoTask = document.getElementById("todoTask").value;
 
   if (todoTask) {
+    var spanTask = document.createElement('span');
     var listItem = document.createElement('li');
-    listItem.innerHTML = todoTask;
+    spanTask.innerHTML = todoTask;
+    listItem.appendChild(spanTask);
 
     // Add delete button
     var xBtn = document.createElement('button');
@@ -53,32 +54,57 @@ submit.addEventListener('click', function (event) {
     editBtn.innerHTML = "edit";
     editBtn.setAttribute("type", "button");
 
-    //First click on Edit Button
+    // //First click on Edit Button
+    // editBtn.addEventListener('click', function () {
+    //   var currentValue = this.previousSibling.previousSibling.textContent;
+    //   editInput.setAttribute("value", currentValue);
+    //   listItem.appendChild(editInput);
+    //
+    //   editBtn.innerHTML = "submit"
+    //   //Second click on Edit Button
+    //   editBtn.addEventListener('click', function () {
+    //     // console.log(this.parentNode.textContent);
+    //     var newValue = document.getElementById("editor").value
+    //     // console.log(newValue);
+    //
+    //     // console.log(this.previousSibling.previousSibling);
+    //     // editBtn.innerHTML = "edit"
+    //     this.previousSibling.previousSibling.innerText = newValue;
+    //   });
+    // });
+
+
+    console.log("this is first pressed value should be false: " + pressed);
+
+    var pressed = false;
     editBtn.addEventListener('click', function () {
-      var currentValue = this.previousSibling.previousSibling.textContent;
-      editInput.setAttribute("value", currentValue);
-      listItem.appendChild(editInput);
+      if (!pressed) {
+        //do first click
+        var currentValue = this.previousSibling.previousSibling.textContent;
+        editInput.setAttribute("value", currentValue);
+        listItem.appendChild(editInput);
+        editBtn.innerHTML = "submit"
+        pressed = true;
 
-      editBtn.innerHTML = "submit"
-      //Second click on Edit Button
-      editBtn.addEventListener('click', function () {
-        // console.log(this.parentNode.textContent);
+        console.log("this is first pressed value should be true: " + pressed);
+      } else {
+        //do second click
         var newValue = document.getElementById("editor").value
-
-        this.parentNode.appendChild(editBtn);
-        this.parentNode.appendChild(xBtn);
         // editBtn.innerHTML = "edit"
-        this.parentNode.innerHTML = newValue;
-      });
-    });
+        this.previousSibling.previousSibling.innerText = newValue;
+        listItem.removeChild(editInput);
 
+        pressed = false;
+        console.log("this is first pressed value should be false: " + pressed);
+        editBtn.innerHTML = "edit"
+      }
+    });
 
 
 
 
     listItem.appendChild(xBtn);
     listItem.appendChild(editBtn);
-
 
     unordered.appendChild(listItem);
 
