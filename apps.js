@@ -65,8 +65,10 @@ submit.addEventListener('click', function (event) {
         // console.log(this.parentNode.textContent);
         var newValue = document.getElementById("editor").value
 
+        this.parentNode.appendChild(editBtn);
+        this.parentNode.appendChild(xBtn);
+        // editBtn.innerHTML = "edit"
         this.parentNode.innerHTML = newValue;
-
       });
     });
 
