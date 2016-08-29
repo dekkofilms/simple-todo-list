@@ -52,8 +52,15 @@ ul li {
 
 .deleteBtn {
   float: right;
+  margin-top: 5px;
 }
 
 .editBtn {
   float: right;
+  margin-top: 5px;
+}
+
+#editor {
+  padding: 0 5px;
+  margin-right: 5px;
 }
