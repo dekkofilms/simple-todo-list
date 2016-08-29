@@ -29,10 +29,10 @@ submit.addEventListener('click', function (event) {
   var todoTask = document.getElementById("todoTask").value;
 
   if (todoTask) {
-    var spanTask = document.createElement('span');
+    var labelTask = document.createElement('label');
     var listItem = document.createElement('li');
-    spanTask.innerHTML = todoTask;
-    listItem.appendChild(spanTask);
+    labelTask.innerHTML = todoTask;
+    listItem.appendChild(labelTask);
 
     // Add delete button
     var xBtn = document.createElement('button');
