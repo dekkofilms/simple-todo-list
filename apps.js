@@ -1,108 +1,103 @@
-// Header at the top
-var heading = document.createElement('h1');
-document.getElementsByTagName('h1');
-heading.innerHTML = "Todo App";
+$( document ).ready(function() {
+  //Heading
+  var heading = $('<h1>').html('Todo App');
 
-//Form
-var todoForm = document.createElement('form');
-todoForm.setAttribute("id", "masterForm")
+  //Form
+  var todoForm = $('<form>').attr('id', 'masterForm');
 
-//UL
-var unordered = document.createElement('ul');
+  //UL
+  var unordered = $('<ul>')
 
-// Input Creation
-var input = document.createElement('input');
-input.setAttribute("type", "text");
-input.setAttribute("name", "todo");
-input.setAttribute("id", "todoTask")
-input.setAttribute("placeholder", "what do you need to do?")
+  // Input Creation
+  var input = $('<input>').attr({
+                                  'id' : 'todoTask',
+                                  'type' : 'text',
+                                  'name' : 'todo',
+                                  'placeholder' : 'what do you need to do?'
+                                })
 
-// Submit Button Creation
-var submit = document.createElement('button')
-submit.setAttribute("type", "submit");
-submit.setAttribute("id", "add_todo");
-submit.innerHTML = "Add ToDo";
+  // Submit Button Creation
+  var submit = $('<button>').html('Add ToDo');
+  submit.attr({
+                'type' : 'submit',
+                'id' : 'add_todo'
+              })
 
-//Event Handler to add Todo's to List
-submit.addEventListener('click', function (event) {
-  event.preventDefault();
-  var todoTask = document.getElementById("todoTask").value;
+  //Event Handler to add Todo's to List
+  submit.on('click', function (event) {
+    event.preventDefault();
+    var todoTask = $('#todoTask').val();
 
-  if (todoTask) {
-    var labelTask = document.createElement('label');
-    var listItem = document.createElement('li');
-    labelTask.innerHTML = todoTask;
-    listItem.appendChild(labelTask);
+    if (todoTask) {
+      var labelTask = $('<label>').html(todoTask);
+      var listItem = $('<li>')
 
-    // Add delete button
-    var xBtn = document.createElement('button');
-    xBtn.setAttribute("class", "deleteBtn");
-    xBtn.innerHTML = "x";
-    xBtn.setAttribute("type", "button");
-    xBtn.addEventListener('click', function () {
-      this.parentNode.remove();
-    })
+      listItem.append(labelTask);
 
-    //Add edit button
-    var editInput = document.createElement('input');
-    editInput.setAttribute("type", "text");
-    editInput.setAttribute("name", "editor");
-    editInput.setAttribute("id", "editor");
+      // Add delete button
+      var xBtn = $('<button>').html('x')
+      xBtn.attr({
+                  'class' : 'deleteBtn',
+                  'type' : 'button'
+                })
 
-    var editBtn = document.createElement('button');
-    editBtn.setAttribute("class", "editBtn");
-    editBtn.innerHTML = "edit";
-    editBtn.setAttribute("type", "button");
+      xBtn.on('click', function () {
+        this.parentNode.remove();
+      })
 
-    var pressed = false;
-    editBtn.addEventListener('click', function () {
-      if (!pressed) {
-        //do first click
-        var currentValue = this.previousSibling.previousSibling.textContent;
-        editInput.setAttribute("value", currentValue);
-        listItem.appendChild(editInput);
-        editBtn.innerHTML = "submit"
-        pressed = true;
-      } else {
-        //do second click
-        var newValue = document.getElementById("editor").value
-        this.previousSibling.previousSibling.innerText = newValue;
-        listItem.removeChild(editInput);
+      //Add edit button
+      var editInput = $('<input>').attr({
+                                          'type' : 'text',
+                                          'name' : 'editor',
+                                          'id' : 'editor'
+                                        })
 
-        pressed = false;
-        editBtn.innerHTML = "edit"
-      }
-    });
+      var editBtn = $('<button>').html('edit')
+      editBtn.attr({
+                    'class' : 'editBtn',
+                    'type' : 'button'
+                  })
+
+      var pressed = false;
+      editBtn.on('click', function () {
+        if (!pressed) {
+          //do first click
+          var currentValue = $(this).prev().prev().text();
+          editInput.attr("value", currentValue);
+          listItem.append(editInput);
+          editBtn.html('submit');
+          pressed = true;
+        } else {
+          //do second click
+          var newValue = $('#editor').val();
+          $(this).prev().prev().text(newValue);
+          editInput.remove();
+
+          pressed = false;
+          editBtn.html('edit')
+        }
+      });
 
 
 
 
-    listItem.appendChild(xBtn);
-    listItem.appendChild(editBtn);
+      listItem.append(xBtn);
+      listItem.append(editBtn);
 
-    unordered.appendChild(listItem);
+      unordered.append(listItem);
 
-    //Resets the form
-    document.getElementById("masterForm").reset();
-  } else {
-    //Checks to see if the input is empty
-    window.alert("Please Enter a Task");
-  }
+      //Resets the form
+      document.getElementById("masterForm").reset();
+    } else {
+      //Checks to see if the input is empty
+      window.alert("Please Enter a Task");
+    }
+  });
+
+  //Appending to HTML
+  $('body').append(heading);
+  $('body').append(todoForm);
+  todoForm.append(input);
+  todoForm.append(unordered);
+  todoForm.append(submit);
 });
-
-
-
-
-
-
-
-
-
-//Appending to HTML
-document.body.appendChild(heading);
-document.body.appendChild(todoForm);
-todoForm.appendChild(input);
-
-todoForm.appendChild(unordered);
-
-todoForm.appendChild(submit);
